@@ -1,0 +1,6 @@
+@LeratosChatServer_HostAddress = http://localhost:5107
+
+GET {{LeratosChatServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
