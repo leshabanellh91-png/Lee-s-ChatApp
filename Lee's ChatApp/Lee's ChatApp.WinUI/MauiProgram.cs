@@ -1,15 +1,32 @@
-﻿namespace Lee_s_ChatApp.WinUI
+﻿using LeratosChatServer.Hubs;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Controllers (optional)
+builder.Services.AddControllers();
+
+// SignalR
+builder.Services.AddSignalR();
+
+// CORS for MAUI client
+builder.Services.AddCors(options =>
 {
-    public static class MauiProgram
+    options.AddPolicy("AllowAll", policy =>
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
+        policy
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowed(_ => true);
+    });
+});
 
-            builder
-                .UseSharedMauiApp();
+var app = builder.Build();
 
-            return builder.Build();
-        }
-    }
-}
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+
+app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
+
+app.Run();
