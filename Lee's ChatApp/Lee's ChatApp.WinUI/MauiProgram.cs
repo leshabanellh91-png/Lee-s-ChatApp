@@ -1,8 +1,13 @@
-﻿using LeratosChatServer.Hubs;
+﻿using LeratosChatServer1.Hubs; // matches your ChatHub namespace
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR.Client;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers (optional)
+// Controllers
 builder.Services.AddControllers();
 
 // SignalR
@@ -13,11 +18,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials()
-            .SetIsOriginAllowed(_ => true);
+        policy.AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials()
+              .SetIsOriginAllowed(_ => true);
     });
 });
 

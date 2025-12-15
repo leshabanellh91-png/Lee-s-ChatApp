@@ -1,4 +1,4 @@
-﻿namespace LeratosChatServer.Models
+﻿namespace LeratosChatServer1.Models
 {
     public class ChatMessage
     {

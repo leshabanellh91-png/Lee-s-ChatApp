@@ -1,0 +1,6 @@
+@Lee_schatserver_HostAddress = http://localhost:5263
+
+GET {{Lee_schatserver_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

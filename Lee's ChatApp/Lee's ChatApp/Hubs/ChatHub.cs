@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using LeratosChatServer1.Models;
 
-namespace LeratosChatServer.Hubs;
-
-public class ChatHub : Hub
+namespace LeratosChatServer1.Hubs
 {
-    public async Task SendMessage(string user, string message)
+    public class ChatHub : Hub
     {
-        var chatMessage = new
+        public async Task SendMessage(string user, string message)
         {
-            User = user,
-            Text = message,
-            SentAt = DateTime.UtcNow
-        };
+            var chatMessage = new ChatMessage
+            {
+                User = user,
+                Text = message,
+                SentAt = DateTime.UtcNow
+            };
 
-        await Clients.All.SendAsync("ReceiveMessage", chatMessage);
+            await Clients.All.SendAsync("ReceiveMessage", chatMessage);
+        }
     }
 }
